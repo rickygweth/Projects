@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Ricky Gweth</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <style>
+    :root {
+      --black: #080808;
+      --white: #f4f1ec;
+      --accent: #c8f04d;
+      --muted: #888;
+      --card-bg: #111;
+      --border: #222;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* Noise overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.4;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 8%;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8,8,8,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.3rem;
+      letter-spacing: -0.03em;
+      text-decoration: none;
+      color: var(--white);
+    }
+
+    .logo span { color: var(--accent); }
+
+    .nav-links { display: flex; align-items: center; gap: 36px; }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a.active { color: var(--white); }
+
+    .nav-links .hire-btn {
+      color: var(--black) !important;
+      background: var(--accent);
+      padding: 9px 22px;
+      border-radius: 100px;
+      font-weight: 500;
+      text-transform: none !important;
+      letter-spacing: 0 !important;
+    }
+
+    .nav-links .hire-btn:hover { background: #d4f76a; }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      padding: 80px 8% 60px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .page-hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin-bottom: 16px;
+    }
+
+    .page-hero p {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 500px;
+      line-height: 1.7;
+    }
+
+    /* ── PROFILE SECTION ── */
+    .profile-section {
+      padding: 70px 8% 0;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    /* Profile card */
+    .profile-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 16px;
+      position: sticky;
+      top: 100px;
+    }
+
+    .profile-img-wrap {
+      position: relative;
+      width: 140px;
+      height: 140px;
+    }
+
+    .profile-img-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), transparent 60%);
+      z-index: 0;
+    }
+
+    .profile-img-wrap img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      position: relative;
+      z-index: 1;
+      display: block;
+    }
+
+    .profile-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.15rem;
+    }
+
+    .profile-role {
+      color: var(--accent);
+      font-size: 0.82rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .profile-location {
+      color: var(--muted);
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .profile-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .social-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .social-btn {
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      transition: 0.2s;
+    }
+
+    .social-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .contact-btn {
+      width: 100%;
+      background: var(--accent);
+      color: var(--black);
+      border: none;
+      padding: 11px;
+      border-radius: 100px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 0.88rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+      transition: 0.2s;
+    }
+
+    .contact-btn:hover { background: #d4f76a; }
+
+    /* ── RIGHT COLUMN ── */
+    .about-content {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+      padding-bottom: 100px;
+    }
+
+    .content-block h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .content-block h2 i {
+      color: var(--accent);
+      font-size: 1rem;
+    }
+
+    .content-block p {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+
+    /* Stats row */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px 16px;
+      text-align: center;
+      transition: 0.2s;
+    }
+
+    .stat-card:hover { border-color: var(--accent); }
+
+    .stat-number {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Certificates carousel */
+    .certs-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .certs-track-wrap {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+    }
+
+    .certs-track {
+      display: flex;
+      transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .cert-slide {
+      min-width: 100%;
+      position: relative;
+    }
+
+    .cert-slide img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cert-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 24px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.85));
+    }
+
+    .cert-caption h4 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .cert-caption p {
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    /* Carousel controls */
+    .carousel-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 14px;
+    }
+
+    .carousel-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--border);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .dot.active {
+      background: var(--accent);
+      width: 20px;
+      border-radius: 3px;
+    }
+
+    .carousel-btns { display: flex; gap: 8px; }
+
+    .carousel-btn {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--border);
+      background: transparent;
+      border-radius: 50%;
+      color: var(--white);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      transition: 0.2s;
+    }
+
+    .carousel-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--white); }
+
+    /* ── ANIMATIONS ── */
+    .fade-in { opacity: 0; transform: translateY(20px); animation: fadeUp 0.6s forwards; }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    .d1 { animation-delay: 0.05s; }
+    .d2 { animation-delay: 0.15s; }
+    .d3 { animation-delay: 0.25s; }
+    .d4 { animation-delay: 0.35s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .profile-section {
+        grid-template-columns: 1fr;
+        padding: 50px 5% 0;
+      }
+
+      .profile-card { position: static; }
+
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+
+      nav { padding: 20px 5%; }
+      .page-hero { padding: 60px 5% 40px; }
+      footer { flex-direction: column; gap: 10px; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="home.html" class="logo">Ricky<span>.</span>dev</a>
+  <div class="nav-links">
+    <a href="home.html">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="aboutme.html" class="active">About</a>
+    <a href="contactme.html" class="hire-btn">Hire Me</a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-hero">
+  <div class="section-label fade-in">Who I am</div>
+  <h1 class="fade-in d1">About Me</h1>
+  <p class="fade-in d2">A little bit about my background, what I've accomplished, and what drives me.</p>
+</div>
+
+<!-- PROFILE + CONTENT -->
+<div class="profile-section">
+
+  <!-- LEFT: Profile Card -->
+  <div class="profile-card fade-in d2">
+    <div class="profile-img-wrap">
+      <img src="images/image.png" alt="Ricky Gweth">
+    </div>
+    <div class="profile-name">Ricky Gweth</div>
+    <div class="profile-role">Full Stack Developer</div>
+    <div class="profile-location">
+      <i class="fa-solid fa-location-dot" style="color:var(--accent);font-size:0.75rem;"></i>
+      San Antonio, Texas
+    </div>
+    <div class="profile-divider"></div>
+    <div class="social-row">
+      <a href="#" class="social-btn" title="GitHub"><i class="fa-brands fa-github"></i></a>
+      <a href="#" class="social-btn" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+      <a href="#" class="social-btn" title="Twitter/X"><i class="fa-brands fa-x-twitter"></i></a>
+      <a href="mailto:rickygweth828@gmail.com" class="social-btn" title="Email"><i class="fa-solid fa-envelope"></i></a>
+    </div>
+    <a href="contactme.html" class="contact-btn">Get In Touch</a>
+  </div>
+
+  <!-- RIGHT: Content -->
+  <div class="about-content fade-in d3">
+
+    <!-- Bio -->
+    <div class="content-block">
+      <h2><i class="fa-solid fa-user"></i> Background</h2>
+      <p>
+        I'm a dedicated Computer Science student at Northwest Vista College pursuing an Associate of Science degree.
+        Highly adaptable and committed to academic and professional growth, I'm experienced in delivering excellent
+        customer service and supporting peers through campus engagement. I'm skilled in communication, problem-solving,
+        and technical tasks, with developing experience in Python, web development, and STEM-focused projects.
+        Actively seeking internship and job opportunities in the technology field.
+      </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="content-block">
+      <h2><i class="fa-solid fa-chart-simple"></i> By the Numbers</h2>
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-number">5+</div>
+          <div class="stat-label">Projects Built</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">2+</div>
+          <div class="stat-label">Years Coding</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">4</div>
+          <div class="stat-label">Certificates</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">1247</div>
+          <div class="stat-label">Coffees ☕</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Certificates carousel -->
+    <div class="content-block">
+      <h2><i class="fa-solid fa-certificate"></i> Certificates</h2>
+      <div class="certs-label">Tap the arrows to browse</div>
+
+      <div class="certs-track-wrap">
+        <div class="certs-track" id="certsTrack">
+
+          <div class="cert-slide">
+            <img src="images/Java Programming.jpeg" alt="Java Programming Certificate">
+            <div class="cert-caption">
+              <h4>Java Programming</h4>
+              <p>Core Java fundamentals and object-oriented programming</p>
+            </div>
+          </div>
+
+          <div class="cert-slide">
+            <img src="images/IT .jpeg" alt="IT Certificate">
+            <div class="cert-caption">
+              <h4>Information Technology</h4>
+              <p>Foundations of IT systems and infrastructure</p>
+            </div>
+          </div>
+
+          <div class="cert-slide">
+            <img src="images/Web Design and Development Cert.jpeg" alt="Web Design andDevelopment Certificate">
+            <div class="cert-caption">
+              <h4>Web Design and Development</h4>
+              <p>HTML, CSS, JavaScript and modern web practices</p>
+            </div>
+          </div>
+
+          <div class="cert-slide">
+            <img src="images/Python Programmimg.jpeg" alt="Python Programming Certificate">
+            <div class="cert-caption">
+              <h4>Python Programming</h4>
+              <p>Python scripting, data handling, and automation</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="carousel-controls">
+        <div class="carousel-dots" id="carouselDots"></div>
+        <div class="carousel-btns">
+          <button class="carousel-btn" id="prevBtn"><i class="fa-solid fa-chevron-left"></i></button>
+          <button class="carousel-btn" id="nextBtn"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact strip -->
+    <div class="content-block">
+      <h2><i class="fa-solid fa-envelope"></i> Let's Connect</h2>
+      <p style="margin-bottom:20px;">Open to freelance projects, collaborations, and full-time opportunities.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="mailto:rickygweth828@gmail.com" style="display:flex;align-items:center;gap:8px;background:var(--card-bg);border:1px solid var(--border);padding:10px 18px;border-radius:100px;text-decoration:none;color:var(--white);font-size:0.87rem;transition:0.2s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+          <i class="fa-solid fa-envelope" style="color:var(--accent);"></i> rickygweth828@gmail.com
+        </a>
+        <a href="tel:+12105944826" style="display:flex;align-items:center;gap:8px;background:var(--card-bg);border:1px solid var(--border);padding:10px 18px;border-radius:100px;text-decoration:none;color:var(--white);font-size:0.87rem;transition:0.2s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+          <i class="fa-solid fa-phone" style="color:var(--accent);"></i> (210) 594-4826
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Ricky Gweth</span>
+  <div style="display:flex;gap:20px;">
+    <a href="#">GitHub</a>
+    <a href="#">LinkedIn</a>
+    <a href="mailto:rickygweth828@gmail.com">Email</a>
+  </div>
+</footer>
+
+<script>
+  // Custom carousel
+  const track = document.getElementById('certsTrack');
+  const slides = track.children;
+  const dotsContainer = document.getElementById('carouselDots');
+  let current = 0;
+  const total = slides.length;
+
+  // Build dots
+  for (let i = 0; i < total; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goTo(i));
+    dotsContainer.appendChild(dot);
+  }
+
+  function goTo(index) {
+    current = (index + total) % total;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    document.querySelectorAll('.dot').forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+    });
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
+  document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
+
+  // Auto-advance every 5s
+  setInterval(() => goTo(current + 1), 5000);
+</script>
+
+</body>
+</html>
