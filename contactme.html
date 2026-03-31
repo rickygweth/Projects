@@ -365,27 +365,44 @@
     <div class="info-block">
       <h3>Socials</h3>
       <div class="social-row" style="margin-top:12px;">
-        <a href="#" class="social-btn" title="GitHub"><i class="fa-brands fa-github"></i></a>
-        <a href="#" class="social-btn" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-        <a href="#" class="social-btn" title="Twitter/X"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="https://github.com/rickygweth" class="social-btn" title="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/ricky-gweth-42476a393/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BaBUxpZhDT4yR09q3WwyhdA%3D%3D" class="social-btn" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="https://x.com/rickronicles_ke" class="social-btn" title="Twitter/X"><i class="fa-brands fa-x-twitter"></i></a>
       </div>
     </div>
 
   </div>
 
   <!-- RIGHT: Form -->
-  <form id="contact-form" class="contact-form fade-in d3">
+  <!--
+    ═══════════════════════════════════════════════════
+    FORMSPREE SETUP (one-time, takes 2 minutes):
+    1. Go to https://formspree.io and sign up free
+    2. Click "New Form" → name it "Portfolio Contact"
+    3. Copy your form ID (looks like: xyzabcde)
+    4. Replace YOUR_FORM_ID below with that ID
+    5. Formspree will email rickygweth828@gmail.com
+       every time someone submits this form ✓
+    ═══════════════════════════════════════════════════
+  -->
+  <form id="contact-form" class="contact-form fade-in d3"
+        action="https://formspree.io/f/xwvwbngr"
+        method="POST">
+
     <div class="form-title">Send a message</div>
     <div class="form-subtitle">Fill out the form below and I'll be in touch.</div>
 
     <div class="input-row">
-      <input type="text" id="firstName" placeholder="First Name">
-      <input type="text" id="lastName" placeholder="Last Name">
+      <input type="text" name="firstName" placeholder="First Name">
+      <input type="text" name="lastName" placeholder="Last Name">
     </div>
 
-    <input type="email" id="email" placeholder="Email *" required>
-    <input type="tel" id="phone" placeholder="Phone (optional)">
-    <textarea id="message" placeholder="Tell me about your project..." required></textarea>
+    <input type="email" name="email" placeholder="Email *" required>
+    <input type="tel" name="phone" placeholder="Phone (optional)">
+    <textarea name="message" placeholder="Tell me about your project..." required></textarea>
+
+    <!-- Formspree spam honeypot — do not remove -->
+    <input type="text" name="_gotcha" style="display:none">
 
     <button type="submit" class="submit-btn" id="submit-btn">
       <i class="fa-solid fa-paper-plane"></i> Send Message
@@ -400,8 +417,8 @@
 <footer>
   <span>© 2025 Ricky Gweth</span>
   <div style="display:flex;gap:20px;">
-    <a href="#">GitHub</a>
-    <a href="#">LinkedIn</a>
+    <a href="https://github.com/rickygweth">GitHub</a>
+    <a href="https://www.linkedin.com/in/ricky-gweth-42476a393/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BaBUxpZhDT4yR09q3WwyhdA%3D%3D">LinkedIn</a>
     <a href="mailto:rickygweth828@gmail.com">Email</a>
   </div>
 </footer>
@@ -412,44 +429,39 @@
 
     const btn = document.getElementById('submit-btn');
     const status = document.getElementById('status');
+    const form = e.target;
 
     btn.disabled = true;
     btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
     status.textContent = '';
 
-    const data = {
-      firstName: document.getElementById('firstName').value,
-      lastName:  document.getElementById('lastName').value,
-      email:     document.getElementById('email').value,
-      phone:     document.getElementById('phone').value,
-      message:   document.getElementById('message').value
-    };
-
     try {
-      const res = await fetch('contact.php', {
+      const res = await fetch(form.action, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
       });
 
-      const result = await res.json();
-      status.textContent = result.message;
-      status.style.color = result.success ? '#c8f04d' : '#ff6b6b';
-
-      if (result.success) {
-        e.target.reset();
+      if (res.ok) {
+        status.textContent = '✓ Message sent! I\'ll get back to you soon.';
+        status.style.color = '#c8f04d';
+        form.reset();
         btn.innerHTML = '<i class="fa-solid fa-check"></i> Sent!';
         setTimeout(() => {
           btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message';
           btn.disabled = false;
-        }, 3000);
+          status.textContent = '';
+        }, 4000);
       } else {
+        const data = await res.json();
+        status.textContent = data?.errors?.[0]?.message || 'Something went wrong. Please try again.';
+        status.style.color = '#ff6b6b';
         btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message';
         btn.disabled = false;
       }
 
     } catch (err) {
-      status.textContent = 'Something went wrong. Please try again.';
+      status.textContent = 'Network error. Please try again.';
       status.style.color = '#ff6b6b';
       btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Message';
       btn.disabled = false;
