@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,308 +7,38 @@
   <title>Projects — Ricky Gweth</title>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-  <style>
-    :root {
-      --black: #080808;
-      --white: #f4f1ec;
-      --accent: #c8f04d;
-      --muted: #888;
-      --card-bg: #111;
-      --border: #222;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--black);
-      color: var(--white);
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 300;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 999;
-      opacity: 0.4;
-    }
-
-    /* NAV */
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 28px 8%;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(8,8,8,0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 1.3rem;
-      letter-spacing: -0.03em;
-      text-decoration: none;
-      color: var(--white);
-    }
-
-    .logo span { color: var(--accent); }
-
-    .nav-links { display: flex; align-items: center; gap: 36px; }
-
-    .nav-links a {
-      text-decoration: none;
-      color: var(--muted);
-      font-size: 0.9rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover, .nav-links a.active { color: var(--white); }
-
-    .nav-links .hire-btn {
-      color: var(--black) !important;
-      background: var(--accent);
-      padding: 9px 22px;
-      border-radius: 100px;
-      font-weight: 500;
-      text-transform: none !important;
-      letter-spacing: 0 !important;
-    }
-
-    .nav-links .hire-btn:hover { background: #d4f76a; }
-
-    /* PAGE HEADER */
-    .page-hero {
-      padding: 80px 8% 60px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .section-label {
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 14px;
-    }
-
-    .page-hero h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      margin-bottom: 16px;
-    }
-
-    .page-hero p {
-      color: var(--muted);
-      font-size: 1rem;
-      max-width: 500px;
-      line-height: 1.7;
-    }
-
-    /* FILTERS */
-    .filters {
-      padding: 32px 8%;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .filter-btn {
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--muted);
-      padding: 8px 20px;
-      border-radius: 100px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .filter-btn:hover, .filter-btn.active {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    /* GRID */
-    .projects-section { padding: 10px 8% 100px; }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 22px;
-    }
-
-    /* CARD */
-    .project-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      overflow: hidden;
-      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
-    }
-
-    .project-card:hover {
-      transform: translateY(-6px);
-      border-color: #2a2a2a;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-    }
-
-    .project-image {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      display: block;
-    }
-
-    .proj-placeholder {
-      width: 100%;
-      height: 200px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-      color: #2a2a2a;
-      background: linear-gradient(135deg, #111, #151515);
-    }
-
-    .project-content { padding: 22px; }
-
-    .project-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 8px;
-    }
-
-    .project-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 1.05rem;
-    }
-
-    .project-status {
-      font-size: 0.65rem;
-      padding: 3px 10px;
-      border-radius: 100px;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    .status-live { background: rgba(77,255,130,0.15); color: #4dff82; border: 1px solid rgba(77,255,130,0.3); }
-    .status-development { background: rgba(255,180,0,0.15); color: #ffb400; border: 1px solid rgba(255,180,0,0.3); }
-    .status-soon { background: rgba(150,150,150,0.1); color: var(--muted); border: 1px solid var(--border); }
-
-    .project-description {
-      color: var(--muted);
-      font-size: 0.87rem;
-      line-height: 1.65;
-      margin-bottom: 16px;
-    }
-
-    .project-technologies {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-bottom: 18px;
-    }
-
-    .tech-tag {
-      font-size: 0.68rem;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--border);
-      padding: 3px 10px;
-      border-radius: 100px;
-      color: var(--white);
-    }
-
-    .project-actions { display: flex; gap: 10px; }
-
-    .project-link {
-      font-size: 0.8rem;
-      padding: 8px 18px;
-      border-radius: 100px;
-      text-decoration: none;
-      transition: 0.2s;
-      display: inline-block;
-    }
-
-    .btn-primary { background: var(--accent); color: var(--black); font-weight: 500; }
-    .btn-primary:hover { background: #d4f76a; }
-    .btn-secondary { border: 1px solid var(--border); color: var(--white); }
-    .btn-secondary:hover { border-color: var(--white); }
-    .btn-disabled { border: 1px solid var(--border); color: var(--muted); pointer-events: none; }
-
-    /* FOOTER */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 28px 8%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.82rem;
-      color: var(--muted);
-    }
-
-    footer a { color: var(--muted); text-decoration: none; }
-    footer a:hover { color: var(--white); }
-
-    /* ANIMATIONS */
-    .fade-in { opacity: 0; transform: translateY(20px); animation: fadeUp 0.6s forwards; }
-    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-    .d1 { animation-delay: 0.05s; }
-    .d2 { animation-delay: 0.15s; }
-    .d3 { animation-delay: 0.25s; }
-    .d4 { animation-delay: 0.35s; }
-
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-      .projects-grid { grid-template-columns: 1fr; }
-      footer { flex-direction: column; gap: 10px; text-align: center; }
-      nav { padding: 20px 5%; }
-      .page-hero, .filters, .projects-section { padding-left: 5%; padding-right: 5%; }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
   <a href="home.html" class="logo">Ricky<span>.</span>dev</a>
   <div class="nav-links">
     <a href="home.html">Home</a>
-    <a href="contactme.html" class="active">Contact Me</a>
+    <a href="projects.html" class="active">Projects</a>
     <a href="aboutme.html">About</a>
-    <a href="mailto:rickygweth828@gmail.com" class="hire-btn">Hire Me</a>
+    <a href="contactme.html" class="hire-btn">Hire Me</a>
   </div>
 </nav>
 
+<!-- PAGE HEADER -->
 <div class="page-hero">
   <div class="section-label fade-in">Portfolio</div>
   <h1 class="fade-in d1">My Projects</h1>
   <p class="fade-in d2">A collection of things I've built — from web apps to full-stack platforms. Always learning, always shipping.</p>
 </div>
 
+<!-- FILTERS -->
 <div class="filters fade-in d2">
   <button class="filter-btn active">All</button>
   <button class="filter-btn">Web App</button>
   <button class="filter-btn">Full Stack</button>
   <button class="filter-btn">Frontend</button>
+  <button class="filter-btn">Java</button>
 </div>
 
+<!-- PROJECTS GRID -->
 <section class="projects-section">
   <div class="projects-grid">
 
@@ -471,11 +202,12 @@
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <span>© 2025 Ricky Gweth</span>
   <div style="display:flex;gap:20px;">
-    <a href="#">GitHub</a>
-    <a href="#">LinkedIn</a>
+    <a href="https://github.com/rickygweth" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/ricky-gweth/" target="_blank">LinkedIn</a>
     <a href="mailto:rickygweth828@gmail.com">Email</a>
   </div>
 </footer>
